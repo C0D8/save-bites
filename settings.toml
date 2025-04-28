@@ -1,0 +1,30 @@
+[default]
+
+SQLALCHEMY_DATABASE_URI = "@format mysql+pymysql://{env[MYSQLUSER]}:{env[MYSQLPASSWORD]}@{env[MYSQLHOST]}:{env[MYSQLPORT]}/{env[MYSQLDATABASE]}"
+SECRET_KEY = "sua_chave_secreta_aqui"
+TITLE = "save_bites"
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+PROPAGATE_EXCEPTIONS = true
+WTF_CSRF_CHECK_DEFAULT = false
+SECURITY_PASSWORD_SALT = 'salt'
+EXTENSIONS =[
+"save_bites.extensions.serializers",
+"save_bites.extensions.cors",
+"save_bites.blueprints.restapi.controllers",
+"save_bites.extensions.db",
+"save_bites.extensions.commands"
+]
+
+[development]
+FLASK_DEBUG=true
+
+[testing]
+SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
+TESTING = true
+EXTENSIONS =[
+"save_bites.extensions.serializers",
+"save_bites.extensions.cors",
+"save_bites.blueprints.restapi.controllers",
+"save_bites.extensions.db",
+"save_bites.extensions.commands"
+]
