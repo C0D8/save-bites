@@ -11,11 +11,21 @@ class AlimentoModel(db.Model):
     valor = db.Column(db.Float, nullable=True)
     categoria = db.Column(db.String(255), nullable=True)    
     tag = db.Column(db.String(255), nullable=True)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    user = db.relationship('User', back_populates='alimentos') 
 
     @classmethod
     def find_all(cls):
         return cls.query.all()
+    
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        return cls.query.filter_by(user_id=user_id).all()
+    
+    @classmethod
+    def find_by_id_and_user_id(cls, id, user_id):
+        return cls.query.filter_by(id=id, user_id=user_id).first()
+    
 
     def save_to_db(self):
         db.session.add(self)

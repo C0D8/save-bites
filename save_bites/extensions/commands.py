@@ -15,7 +15,7 @@ def create_admin():
 #         # db.create_all()
 #         # adicionar a criação das roles iniciais
         admin_role = Role(name="admin")
-        admin_user = User(password=generate_password_hash(os.getenv("ADMIN_PASSWORD")), roles=[admin_role], username= os.getenv("ADMIN_USERNAME"))
+        admin_user = User(password=generate_password_hash(os.getenv("ADMIN_PASSWORD")), roles=[admin_role], username= os.getenv("ADMIN_USERNAME"), clerk_key=os.getenv("ADMIN_USERNAME"))
         db.session.add(admin_role)
         db.session.add(admin_user)
         db.session.commit()

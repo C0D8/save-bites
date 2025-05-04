@@ -10,15 +10,18 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=True)
     username = db.Column(db.String(255), unique=True, nullable=True)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=True)
     roles = db.relationship('Role', secondary='user_roles',
                          backref='users', lazy='dynamic')
+    alimentos = db.relationship('AlimentoModel', back_populates='user')
+    clerk_key = db.Column(db.String(255), unique=True, nullable=False, index=True)
 
     def json(self):return {"username": self.username, "roles": self.roles, "id": self.id} 
 
     @classmethod
     def find_by_username(cls, username):
         return cls.query.filter_by(username=username).first()
+    
     
     def check_password(self, password):
         return self.password == password
